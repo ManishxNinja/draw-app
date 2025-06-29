@@ -4,6 +4,7 @@ import { JWT_SECRET } from '@repo/backend-common/config';
 import { middleware } from "./middleware";
 import { CreateUserSchema, SigninSchema, CreateRoomSchema } from "@repo/common/types";
 import { prismaClient } from "@repo/db/client";
+import bcrypt from 'bcrypt'
 import cors from "cors";
 
 const app = express();
@@ -20,12 +21,13 @@ app.post("/signup", async (req, res) => {
         })
         return;
     }
+    const hashedPass = await bcrypt.hash(parsedData.data?.password,12);
     try {
         const user = await prismaClient.user.create({
             data: {
                 email: parsedData.data?.username,
                 // TODO: Hash the pw
-                password: parsedData.data.password,
+                password: hashedPass,
                 name: parsedData.data.name
             }
         })
@@ -42,35 +44,39 @@ app.post("/signup", async (req, res) => {
 app.post("/signin", async (req, res) => {
     const parsedData = SigninSchema.safeParse(req.body);
     if (!parsedData.success) {
-        res.json({
-            message: "Incorrect inputs"
-        })
+        res.json({ message: "Incorrect inputs" });
         return;
     }
 
-    // TODO: Compare the hashed pws here
-    const user = await prismaClient.user.findFirst({
-        where: {
-            email: parsedData.data.username,
-            password: parsedData.data.password
+    const plainPass = parsedData.data?.password;
+    try {
+        const user = await prismaClient.user.findUnique({
+            where: {
+                email: parsedData.data.username
+            }
+        });
+
+        if (!user) {
+            res.status(403).json({ message: "Not Authorized" });
+            return;
         }
-    })
 
-    if (!user) {
-        res.status(403).json({
-            message: "Not authorized"
-        })
-        return;
+        const isMatch = await bcrypt.compare(plainPass, user.password);
+
+        if (!isMatch) {
+            res.status(403).json({ message: "Incorrect Password!" });
+            return;
+        }
+
+        const token = jwt.sign({ userId: user.id }, JWT_SECRET);
+
+        res.json({ token });
+    } catch (err) {
+        console.error("Signin error:", err);
+        res.status(500).json({ message: "Internal Server Error" });
     }
+});
 
-    const token = jwt.sign({
-        userId: user?.id
-    }, JWT_SECRET);
-
-    res.json({
-        token
-    })
-})
 
 app.post("/room", middleware, async (req, res) => {
     const parsedData = CreateRoomSchema.safeParse(req.body);
