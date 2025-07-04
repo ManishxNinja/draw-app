@@ -15,7 +15,9 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": ["TOKEN", "JWT_SECRET"],
+      "outputs": ["dist/**"]
     }
   }
 }

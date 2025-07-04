@@ -1,12 +1,13 @@
 "use client";
-
+import React from 'react'
 import { useState } from "react";
-import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
 
-export default function Home() {
+
+function Home() {
   const [roomId, setRoomId] = useState("");
   const router = useRouter();
+
 
   return (
     <div style={{
@@ -30,3 +31,6 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;
+
