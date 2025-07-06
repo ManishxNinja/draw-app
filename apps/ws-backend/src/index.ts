@@ -83,6 +83,7 @@ wss.on('connection', function connection(ws, request) {
       console.log(roomId,message);
 
       try {
+        
         await prismaClient.chat.create({
           data: {
             roomId: roomId,
@@ -103,7 +104,6 @@ wss.on('connection', function connection(ws, request) {
           }))
         }
       });
-
       console.log("Message Sendedd:::");
     }
 

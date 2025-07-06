@@ -9,7 +9,7 @@ interface JwtPayload {
     userId: string
 }
 export function middleware(req: Request, res: Response, next: NextFunction) {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzYTY1NDAyMy1mMzE5LTRmNjEtODY3OS1lNDVkOWUyOWY5ZmQiLCJpYXQiOjE3NTE2MDA4MTJ9.YKl2nY5x1-WCnsq8qHzlQJhpDObQVMTJUy69OWIevdw";
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMTNjNTNhNS1jMDBhLTQyNDUtOTEzOS1jNjA2NzcwNTQ4ODQiLCJpYXQiOjE3NTE3ODUzMTR9.TBWYVdcJxk4kG0yJtDZGw3_ACoT55SfzvxkWWZ6cfeQ";
     console.log(process.env.TOKEN)
     console.log(JWT_SECRET);
     const decoded = jwt.verify(token, "123454") as JwtPayload;

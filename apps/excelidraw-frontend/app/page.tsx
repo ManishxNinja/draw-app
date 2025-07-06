@@ -20,13 +20,13 @@ function App() {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link href={"/signin"}>
-                <Button variant={"primary"} size="lg" className="h-12 px-6">
-                  Sign in
+                <Button variant={"primary"} size="lg" className="h-12 px-6 flex items-center justify-center rounded-sm">
+                  <p>Sign in</p>
                   <Pencil className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <Link href="/signup">
-                <Button variant="outline" size="lg" className="h-12 px-6">
+              <Link href="/signup"> 
+                <Button variant="primary" size="lg" className="h-12 px-6 rounded-sm">
                   Sign up
                 </Button>
               </Link>
@@ -39,7 +39,7 @@ function App() {
       <section className="py-24 bg-muted/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
-            <Card className="p-6 border-2 hover:border-primary transition-colors">
+            <Card className="p-6 border-2 hover:border-primary transition-colors rounded-md">
               <div className="flex items-center gap-4">
                 <div className="p-2 rounded-lg bg-primary/10">
                   <Share2 className="h-6 w-6 text-primary" />
@@ -51,7 +51,7 @@ function App() {
               </p>
             </Card>
 
-            <Card className="p-6 border-2 hover:border-primary transition-colors">
+            <Card className="p-6 border-2 hover:border-primary transition-colors rounded-md">
               <div className="flex items-center gap-4">
                 <div className="p-2 rounded-lg bg-primary/10">
                   <Users2 className="h-6 w-6 text-primary" />
@@ -63,7 +63,7 @@ function App() {
               </p>
             </Card>
 
-            <Card className="p-6 border-2 hover:border-primary transition-colors">
+            <Card className="p-6 border-2 hover:border-primary transition-colors rounded-md">
               <div className="flex items-center gap-4">
                 <div className="p-2 rounded-lg bg-primary/10">
                   <Sparkles className="h-6 w-6 text-primary" />
@@ -90,8 +90,8 @@ function App() {
                 Join thousands of users who are already creating amazing diagrams and sketches.
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <Button size="lg" variant="secondary" className="h-12 px-6">
-                  Open Canvas
+                <Button size="lg" variant="secondary" className="h-12 px-6 flex items-center">
+                  <p>Open Canvas</p>
                   <Pencil className="ml-2 h-4 w-4" />
                 </Button>
                 <Button variant="outline" size="lg" className="h-12 px-6 bg-transparent text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
